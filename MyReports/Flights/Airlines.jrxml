@@ -1,0 +1,615 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.20.6.final using JasperReports Library version 6.20.6-5c96b6aa8a39ac1dc6b6bea4b81168e16dd39231  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Airlines" pageWidth="792" pageHeight="612" orientation="Landscape" columnWidth="752" leftMargin="20" rightMargin="20" topMargin="10" bottomMargin="10" uuid="5c673d01-b339-4cf7-9b09-56840b4fac96">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="MySQL"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.report.description" value=""/>
+	<property name="com.jaspersoft.studio.unit." value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
+	<style name="AirlineBand" backcolor="#FFFFFF">
+		<box>
+			<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+			<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+			<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+			<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="HeaderText" mode="Transparent" forecolor="#000000" fontName="Arial" fontSize="16" isBold="true"/>
+	<style name="KPI headers" hTextAlign="Center" vTextAlign="Middle" fontSize="10" isBold="true"/>
+	<style name="KPI text" hTextAlign="Center" vTextAlign="Middle" fontSize="12" isBold="true"/>
+	<style name="AlternateColorStyle">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[new Boolean( $V{REPORT_COUNT}.intValue() % 2 != 0 )]]></conditionExpression>
+			<style mode="Opaque" forecolor="#E5E5E5" backcolor="#E5E5E5"/>
+		</conditionalStyle>
+	</style>
+	<style name="Dep_Button" mode="Opaque" backcolor="#008000">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$F{cancelled}]]></conditionExpression>
+			<style backcolor="#FF0000"/>
+		</conditionalStyle>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$F{dep_delay} > 0]]></conditionExpression>
+			<style backcolor="#FFA500"/>
+		</conditionalStyle>
+	</style>
+	<style name="Arr_Button" mode="Opaque" backcolor="#008000">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$F{cancelled}]]></conditionExpression>
+			<style backcolor="#FF0000"/>
+		</conditionalStyle>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$F{arr_delay} > 0]]></conditionExpression>
+			<style backcolor="#FFA500"/>
+		</conditionalStyle>
+	</style>
+	<parameter name="param_flightdate" class="java.sql.Date">
+		<parameterDescription><![CDATA[Flight Date]]></parameterDescription>
+		<defaultValueExpression><![CDATA[DATE(2010,01,15)]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT 
+    f.transaction_id,
+    f.tail_num,
+    f.airline_code,
+    a.airline_name,
+    f.origin_airport,
+    f.dest_airport,
+    f.sched_deptime,
+    f.dep_delay,
+    f.dep_time,
+    f.taxi_out,
+    f.wheels_off,
+    f.sched_arr_time,
+    f.arr_delay,
+    f.arr_time,
+    f.taxi_in,
+    f.wheels_on,
+    f.cancelled,
+    f.diverted,
+    f.distance
+FROM
+    flights.airlines a
+        JOIN
+    flights.flights f ON a.airline_code = f.airline_code
+WHERE
+    f.flight_date = $P{param_flightdate} 
+ORDER BY a.airline_code , f.sched_deptime]]>
+	</queryString>
+	<field name="transaction_id" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="transaction_id"/>
+		<property name="com.jaspersoft.studio.field.label" value="transaction_id"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="flights"/>
+	</field>
+	<field name="tail_num" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="tail_num"/>
+		<property name="com.jaspersoft.studio.field.label" value="tail_num"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="flights"/>
+	</field>
+	<field name="airline_code" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="airline_code"/>
+		<property name="com.jaspersoft.studio.field.label" value="airline_code"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="flights"/>
+	</field>
+	<field name="airline_name" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="airline_name"/>
+		<property name="com.jaspersoft.studio.field.label" value="airline_name"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="airlines"/>
+	</field>
+	<field name="origin_airport" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="origin_airport"/>
+		<property name="com.jaspersoft.studio.field.label" value="origin_airport"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="flights"/>
+	</field>
+	<field name="dest_airport" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="dest_airport"/>
+		<property name="com.jaspersoft.studio.field.label" value="dest_airport"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="flights"/>
+	</field>
+	<field name="sched_deptime" class="java.sql.Time">
+		<property name="com.jaspersoft.studio.field.name" value="sched_deptime"/>
+		<property name="com.jaspersoft.studio.field.label" value="sched_deptime"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="flights"/>
+	</field>
+	<field name="dep_delay" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="dep_delay"/>
+		<property name="com.jaspersoft.studio.field.label" value="dep_delay"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="flights"/>
+	</field>
+	<field name="dep_time" class="java.sql.Time">
+		<property name="com.jaspersoft.studio.field.name" value="dep_time"/>
+		<property name="com.jaspersoft.studio.field.label" value="dep_time"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="flights"/>
+	</field>
+	<field name="taxi_out" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="taxi_out"/>
+		<property name="com.jaspersoft.studio.field.label" value="taxi_out"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="flights"/>
+	</field>
+	<field name="wheels_off" class="java.sql.Time">
+		<property name="com.jaspersoft.studio.field.name" value="wheels_off"/>
+		<property name="com.jaspersoft.studio.field.label" value="wheels_off"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="flights"/>
+	</field>
+	<field name="sched_arr_time" class="java.sql.Time">
+		<property name="com.jaspersoft.studio.field.name" value="sched_arr_time"/>
+		<property name="com.jaspersoft.studio.field.label" value="sched_arr_time"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="flights"/>
+	</field>
+	<field name="arr_delay" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="arr_delay"/>
+		<property name="com.jaspersoft.studio.field.label" value="arr_delay"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="flights"/>
+	</field>
+	<field name="arr_time" class="java.sql.Time">
+		<property name="com.jaspersoft.studio.field.name" value="arr_time"/>
+		<property name="com.jaspersoft.studio.field.label" value="arr_time"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="flights"/>
+	</field>
+	<field name="taxi_in" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="taxi_in"/>
+		<property name="com.jaspersoft.studio.field.label" value="taxi_in"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="flights"/>
+	</field>
+	<field name="wheels_on" class="java.sql.Time">
+		<property name="com.jaspersoft.studio.field.name" value="wheels_on"/>
+		<property name="com.jaspersoft.studio.field.label" value="wheels_on"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="flights"/>
+	</field>
+	<field name="cancelled" class="java.lang.Boolean">
+		<property name="com.jaspersoft.studio.field.name" value="cancelled"/>
+		<property name="com.jaspersoft.studio.field.label" value="cancelled"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="flights"/>
+	</field>
+	<field name="diverted" class="java.lang.Boolean">
+		<property name="com.jaspersoft.studio.field.name" value="diverted"/>
+		<property name="com.jaspersoft.studio.field.label" value="diverted"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="flights"/>
+	</field>
+	<field name="distance" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="distance"/>
+		<property name="com.jaspersoft.studio.field.label" value="distance"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="flights"/>
+	</field>
+	<variable name="subrpt_num_depflights" class="java.lang.Integer" calculation="System"/>
+	<variable name="airline_num_flights" class="java.lang.Integer" resetType="Group" resetGroup="Airline" calculation="Count">
+		<variableExpression><![CDATA[$F{transaction_id}]]></variableExpression>
+	</variable>
+	<variable name="airline_num_canceled" class="java.lang.Integer" resetType="Group" resetGroup="Airline" calculation="Sum">
+		<variableExpression><![CDATA[$F{cancelled}
+? 1
+: 0]]></variableExpression>
+	</variable>
+	<variable name="airline_num_ontime" class="java.lang.Integer" resetType="Group" resetGroup="Airline" calculation="Sum">
+		<variableExpression><![CDATA[$F{cancelled} || $F{dep_delay} > 0 
+? 0
+ : 1]]></variableExpression>
+	</variable>
+	<variable name="airline_avg_depdelay" class="java.lang.Double" resetType="Group" resetGroup="Airline" calculation="Average">
+		<variableExpression><![CDATA[$F{dep_delay}]]></variableExpression>
+	</variable>
+	<group name="Airline" isStartNewPage="true" isReprintHeaderOnEachPage="true">
+		<groupExpression><![CDATA[$F{airline_code}]]></groupExpression>
+		<groupHeader>
+			<band height="130">
+				<frame>
+					<reportElement style="AirlineBand" mode="Opaque" x="0" y="0" width="752" height="30" uuid="3cf791f0-5a41-4163-81b5-cff4661c76bb">
+						<property name="com.jaspersoft.studio.unit.y" value="px"/>
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<textField>
+						<reportElement style="HeaderText" x="0" y="0" width="90" height="30" uuid="9b00a00e-0fc4-420f-91f8-950da0be1e0c">
+							<property name="com.jaspersoft.studio.unit.height" value="px"/>
+							<property name="com.jaspersoft.studio.unit.y" value="px"/>
+							<property name="com.jaspersoft.studio.unit.width" value="px"/>
+						</reportElement>
+						<textElement textAlignment="Center" verticalAlignment="Middle"/>
+						<textFieldExpression><![CDATA[$F{airline_code}]]></textFieldExpression>
+					</textField>
+					<textField>
+						<reportElement style="HeaderText" x="90" y="0" width="662" height="30" uuid="872b0a81-e36d-4323-9a7c-daa438f08ef6">
+							<property name="com.jaspersoft.studio.unit.height" value="px"/>
+							<property name="com.jaspersoft.studio.unit.y" value="px"/>
+							<property name="com.jaspersoft.studio.unit.width" value="px"/>
+							<property name="com.jaspersoft.studio.unit.x" value="px"/>
+						</reportElement>
+						<textElement textAlignment="Left" verticalAlignment="Middle"/>
+						<textFieldExpression><![CDATA[$F{airline_name}]]></textFieldExpression>
+					</textField>
+				</frame>
+				<frame>
+					<reportElement x="0" y="30" width="752" height="70" uuid="3b5bf2ff-e70e-4bf6-b81a-aa16fb2317e0">
+						<property name="com.jaspersoft.studio.unit.y" value="px"/>
+						<property name="com.jaspersoft.studio.unit.x" value="px"/>
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<textField>
+						<reportElement style="KPI headers" x="31" y="5" width="100" height="30" uuid="a6726aff-992d-4568-870e-9ff75afb9d3d">
+							<property name="com.jaspersoft.studio.unit.y" value="px"/>
+							<property name="com.jaspersoft.studio.unit.x" value="px"/>
+						</reportElement>
+						<textFieldExpression><![CDATA["# of Flights"]]></textFieldExpression>
+					</textField>
+					<textField evaluationTime="Auto" pattern="#,##0;-#,##0">
+						<reportElement style="KPI text" mode="Opaque" x="31" y="35" width="100" height="30" backcolor="#9999FF" uuid="b9fc13b4-2d15-423b-8d48-edd175d4866a">
+							<property name="com.jaspersoft.studio.unit.x" value="px"/>
+						</reportElement>
+						<textFieldExpression><![CDATA[$V{airline_num_flights}]]></textFieldExpression>
+					</textField>
+					<textField>
+						<reportElement style="KPI headers" x="231" y="5" width="100" height="30" uuid="73a38204-e5ec-4ef5-b799-707b5d914969">
+							<property name="com.jaspersoft.studio.unit.x" value="px"/>
+							<property name="com.jaspersoft.studio.unit.y" value="px"/>
+						</reportElement>
+						<textFieldExpression><![CDATA[" # Canceled"]]></textFieldExpression>
+					</textField>
+					<textField>
+						<reportElement style="KPI headers" x="431" y="5" width="100" height="30" uuid="21f779ae-83f7-4f21-a886-33f1c6b5e8fc">
+							<property name="com.jaspersoft.studio.unit.x" value="px"/>
+							<property name="com.jaspersoft.studio.unit.y" value="px"/>
+						</reportElement>
+						<textFieldExpression><![CDATA["On-time %"]]></textFieldExpression>
+					</textField>
+					<textField>
+						<reportElement style="KPI headers" x="630" y="5" width="100" height="30" uuid="0b56469e-30c1-4159-b7b6-22473710231a">
+							<property name="com.jaspersoft.studio.unit.x" value="px"/>
+							<property name="com.jaspersoft.studio.unit.y" value="px"/>
+						</reportElement>
+						<textFieldExpression><![CDATA["Avg Departure Delay (min)"]]></textFieldExpression>
+					</textField>
+					<textField evaluationTime="Auto" pattern="#,##0.00%;-#,##0.00%">
+						<reportElement style="KPI text" mode="Opaque" x="231" y="35" width="100" height="30" backcolor="#FF6666" uuid="c2794cad-7a3d-4f48-a3d5-85491173adcc">
+							<property name="com.jaspersoft.studio.unit.x" value="px"/>
+						</reportElement>
+						<textFieldExpression><![CDATA[$V{airline_num_canceled}.doubleValue()/ $V{airline_num_flights}.doubleValue()]]></textFieldExpression>
+					</textField>
+					<textField evaluationTime="Auto" pattern="#,##0.00%;-#,##0.00%">
+						<reportElement style="KPI text" mode="Opaque" x="431" y="35" width="100" height="30" backcolor="#7FBF7F" uuid="ac3b6d2b-7228-439d-9a53-4b92de088d4c">
+							<property name="com.jaspersoft.studio.unit.x" value="px"/>
+						</reportElement>
+						<textFieldExpression><![CDATA[$V{airline_num_ontime}.doubleValue()/ $V{airline_num_flights}.doubleValue()]]></textFieldExpression>
+					</textField>
+					<textField evaluationTime="Auto" pattern="#,##0.00;-#,##0.00">
+						<reportElement style="KPI text" mode="Opaque" x="630" y="35" width="100" height="30" backcolor="#BFBF7F" uuid="3ece4465-e14e-4ba7-8858-f44379935e49">
+							<property name="com.jaspersoft.studio.unit.x" value="px"/>
+						</reportElement>
+						<textFieldExpression><![CDATA[$V{airline_avg_depdelay}]]></textFieldExpression>
+					</textField>
+				</frame>
+				<frame>
+					<reportElement x="0" y="100" width="752" height="30" uuid="c86aa4d7-d5d0-46fc-9167-0502f776f292">
+						<property name="com.jaspersoft.studio.unit.x" value="px"/>
+						<property name="com.jaspersoft.studio.unit.y" value="px"/>
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<textField isBlankWhenNull="true">
+						<reportElement x="91" y="15" width="50" height="15" uuid="88665c37-d4ce-425e-9dff-1e43967ab612">
+							<property name="com.jaspersoft.studio.unit.y" value="px"/>
+							<property name="com.jaspersoft.studio.unit.height" value="px"/>
+							<property name="com.jaspersoft.studio.unit.width" value="px"/>
+						</reportElement>
+						<textElement textAlignment="Center" verticalAlignment="Middle"/>
+						<textFieldExpression><![CDATA["Tail #"]]></textFieldExpression>
+					</textField>
+					<textField isBlankWhenNull="true">
+						<reportElement x="476" y="15" width="50" height="15" uuid="6d4a8df2-037b-45c3-bc5d-97090e5899d2">
+							<property name="com.jaspersoft.studio.unit.y" value="px"/>
+							<property name="com.jaspersoft.studio.unit.height" value="px"/>
+							<property name="com.jaspersoft.studio.unit.width" value="px"/>
+							<property name="com.jaspersoft.studio.unit.x" value="px"/>
+						</reportElement>
+						<textElement textAlignment="Center" verticalAlignment="Middle"/>
+						<textFieldExpression><![CDATA["Scheduled"]]></textFieldExpression>
+					</textField>
+					<textField>
+						<reportElement x="16" y="15" width="75" height="15" uuid="efacb705-86f1-469f-8a22-a451c59b1d10">
+							<property name="com.jaspersoft.studio.unit.y" value="px"/>
+							<property name="com.jaspersoft.studio.unit.height" value="px"/>
+							<property name="com.jaspersoft.studio.unit.width" value="px"/>
+							<property name="com.jaspersoft.studio.unit.x" value="px"/>
+						</reportElement>
+						<textElement verticalAlignment="Middle"/>
+						<textFieldExpression><![CDATA["Route"]]></textFieldExpression>
+					</textField>
+					<textField isBlankWhenNull="true">
+						<reportElement x="697" y="15" width="55" height="15" uuid="fb16eaa7-70ae-4f78-958a-698fd15e14a4">
+							<property name="com.jaspersoft.studio.unit.y" value="px"/>
+							<property name="com.jaspersoft.studio.unit.height" value="px"/>
+							<property name="com.jaspersoft.studio.unit.width" value="px"/>
+							<property name="com.jaspersoft.studio.unit.x" value="px"/>
+						</reportElement>
+						<textElement verticalAlignment="Middle"/>
+						<textFieldExpression><![CDATA["Distance"]]></textFieldExpression>
+					</textField>
+					<textField isBlankWhenNull="true">
+						<reportElement x="256" y="15" width="55" height="15" uuid="d1d38371-d12f-45b3-88b3-991131b8ee9c">
+							<property name="com.jaspersoft.studio.unit.y" value="px"/>
+							<property name="com.jaspersoft.studio.unit.height" value="px"/>
+							<property name="com.jaspersoft.studio.unit.width" value="px"/>
+							<property name="com.jaspersoft.studio.unit.x" value="px"/>
+						</reportElement>
+						<textElement verticalAlignment="Middle"/>
+						<textFieldExpression><![CDATA["Wheels Off"]]></textFieldExpression>
+					</textField>
+					<textField isBlankWhenNull="true">
+						<reportElement x="151" y="15" width="50" height="15" uuid="048590eb-b745-42a3-8e5d-9d8dbc3baec8">
+							<property name="com.jaspersoft.studio.unit.y" value="px"/>
+							<property name="com.jaspersoft.studio.unit.height" value="px"/>
+							<property name="com.jaspersoft.studio.unit.width" value="px"/>
+							<property name="com.jaspersoft.studio.unit.x" value="px"/>
+						</reportElement>
+						<textElement textAlignment="Center" verticalAlignment="Middle"/>
+						<textFieldExpression><![CDATA["Scheduled"]]></textFieldExpression>
+					</textField>
+					<textField isBlankWhenNull="true">
+						<reportElement x="526" y="15" width="55" height="15" uuid="7f70cd99-80e3-482a-a979-68a311adf52a">
+							<property name="com.jaspersoft.studio.unit.y" value="px"/>
+							<property name="com.jaspersoft.studio.unit.height" value="px"/>
+							<property name="com.jaspersoft.studio.unit.width" value="px"/>
+							<property name="com.jaspersoft.studio.unit.x" value="px"/>
+						</reportElement>
+						<textElement textAlignment="Center" verticalAlignment="Middle"/>
+						<textFieldExpression><![CDATA["Actual"]]></textFieldExpression>
+					</textField>
+					<textField isBlankWhenNull="true">
+						<reportElement x="201" y="15" width="55" height="15" uuid="74d7863c-53b6-47b3-a0b1-ab2b86f5202e">
+							<property name="com.jaspersoft.studio.unit.y" value="px"/>
+							<property name="com.jaspersoft.studio.unit.height" value="px"/>
+							<property name="com.jaspersoft.studio.unit.width" value="px"/>
+							<property name="com.jaspersoft.studio.unit.x" value="px"/>
+						</reportElement>
+						<textElement textAlignment="Center" verticalAlignment="Middle"/>
+						<textFieldExpression><![CDATA["Actual"]]></textFieldExpression>
+					</textField>
+					<textField isBlankWhenNull="true">
+						<reportElement x="421" y="15" width="55" height="15" uuid="853529a0-1529-4a54-8750-1fd22070e2d5">
+							<property name="com.jaspersoft.studio.unit.y" value="px"/>
+							<property name="com.jaspersoft.studio.unit.height" value="px"/>
+							<property name="com.jaspersoft.studio.unit.width" value="px"/>
+							<property name="com.jaspersoft.studio.unit.x" value="px"/>
+						</reportElement>
+						<textElement textAlignment="Center" verticalAlignment="Middle"/>
+						<textFieldExpression><![CDATA["Wheel On"]]></textFieldExpression>
+					</textField>
+					<textField>
+						<reportElement x="581" y="15" width="100" height="15" uuid="f0c37b6f-42ae-44bb-b99d-de61822dd174">
+							<property name="com.jaspersoft.studio.unit.y" value="px"/>
+							<property name="com.jaspersoft.studio.unit.height" value="px"/>
+							<property name="com.jaspersoft.studio.unit.x" value="px"/>
+						</reportElement>
+						<textElement verticalAlignment="Middle"/>
+						<textFieldExpression><![CDATA[""]]></textFieldExpression>
+					</textField>
+					<textField>
+						<reportElement x="311" y="15" width="100" height="15" uuid="5018ce22-4656-4c32-8639-35899b0d4240">
+							<property name="com.jaspersoft.studio.unit.y" value="px"/>
+							<property name="com.jaspersoft.studio.unit.height" value="px"/>
+							<property name="com.jaspersoft.studio.unit.x" value="px"/>
+						</reportElement>
+						<textElement textAlignment="Left" verticalAlignment="Middle"/>
+						<textFieldExpression><![CDATA[""]]></textFieldExpression>
+					</textField>
+					<textField>
+						<reportElement x="151" y="0" width="260" height="15" uuid="ce0325ac-fdca-4402-8c31-59302f173e98">
+							<property name="com.jaspersoft.studio.unit.y" value="px"/>
+							<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						</reportElement>
+						<textElement textAlignment="Center" verticalAlignment="Bottom"/>
+						<textFieldExpression><![CDATA["Departures"]]></textFieldExpression>
+					</textField>
+					<textField>
+						<reportElement x="421" y="0" width="260" height="15" uuid="1f440a03-6675-433c-adf6-3ef836195ba9">
+							<property name="com.jaspersoft.studio.unit.height" value="px"/>
+							<property name="com.jaspersoft.studio.unit.x" value="px"/>
+							<property name="com.jaspersoft.studio.unit.y" value="px"/>
+						</reportElement>
+						<textElement textAlignment="Center" verticalAlignment="Bottom"/>
+						<textFieldExpression><![CDATA["Arrivals"]]></textFieldExpression>
+					</textField>
+				</frame>
+			</band>
+		</groupHeader>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<pageHeader>
+		<band height="50" splitType="Stretch">
+			<frame>
+				<reportElement x="0" y="0" width="752" height="50" uuid="b08356d3-94d2-43ff-9e27-9faf2ac17c26">
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textField>
+					<reportElement x="0" y="30" width="752" height="20" uuid="5aabd0c1-71ce-433e-924a-43862ed3b8ed"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" size="10"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Flight Date: "+
+new SimpleDateFormat("MMMM dd, yyyy").format($P{param_flightdate})]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="0" y="0" width="752" height="30" uuid="d03294a7-e2d2-412d-b286-481c6092a2bc">
+						<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="16"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Airline Departures & Arrivals"]]></textFieldExpression>
+				</textField>
+				<image>
+					<reportElement x="0" y="0" width="90" height="50" uuid="e1de6af8-fd04-4725-8d9d-c1aa26ae0f81">
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
+						<property name="com.jaspersoft.studio.unit.y" value="px"/>
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<imageExpression><![CDATA["images/plane.jpg"]]></imageExpression>
+				</image>
+			</frame>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="15">
+			<frame>
+				<reportElement style="AlternateColorStyle" x="0" y="0" width="752" height="15" uuid="704520f7-939d-4418-9931-b7f3e13bd903">
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textField>
+					<reportElement x="16" y="0" width="75" height="15" uuid="023cd5b5-c105-4cb1-9564-03320b198222">
+						<property name="com.jaspersoft.studio.unit.y" value="px"/>
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					</reportElement>
+					<textElement verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{origin_airport}+ " -> "+$F{dest_airport}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement x="91" y="0" width="50" height="15" uuid="12d5cc96-0888-4ca7-a8ff-a4d07b0598f6">
+						<property name="com.jaspersoft.studio.unit.y" value="px"/>
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
+						<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{tail_num}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement x="151" y="0" width="50" height="15" uuid="9a4340bb-c375-4726-8efc-f514d634ae95">
+						<property name="com.jaspersoft.studio.unit.y" value="px"/>
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
+						<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[new SimpleDateFormat("HH:mm").format($F{sched_deptime})]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement x="201" y="0" width="55" height="15" uuid="b8adf7d6-8a29-45dc-ba45-244ee091fc79">
+						<property name="com.jaspersoft.studio.unit.y" value="px"/>
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
+						<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[new SimpleDateFormat("HH:mm").format($F{dep_time})]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement x="256" y="0" width="55" height="15" uuid="85d49088-e7b3-4b9b-b0ea-b3c1033c8341">
+						<property name="com.jaspersoft.studio.unit.y" value="px"/>
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
+						<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					</reportElement>
+					<textElement verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[new SimpleDateFormat("HH:mm").format($F{wheels_off})]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement x="476" y="0" width="50" height="15" uuid="872bdeb3-287f-42bb-bb4d-437e72e58d93">
+						<property name="com.jaspersoft.studio.unit.y" value="px"/>
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
+						<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[new SimpleDateFormat("HH:mm").format($F{sched_arr_time})]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement x="526" y="0" width="55" height="15" uuid="f118cef0-2fd6-4b4f-a4e0-b5e39f149c77">
+						<property name="com.jaspersoft.studio.unit.y" value="px"/>
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
+						<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[new SimpleDateFormat("HH:mm").format($F{arr_time})]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement x="421" y="0" width="55" height="15" uuid="e783e3bc-9164-4dbb-ab01-3ae528808b90">
+						<property name="com.jaspersoft.studio.unit.y" value="px"/>
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
+						<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[new SimpleDateFormat("HH:mm").format($F{wheels_on})]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.###;#,##0.###-" isBlankWhenNull="true">
+					<reportElement x="697" y="0" width="55" height="15" uuid="b7098e22-46ea-4113-b748-bfc5247fd7cc">
+						<property name="com.jaspersoft.studio.unit.y" value="px"/>
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					</reportElement>
+					<textElement verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{distance}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="311" y="0" width="100" height="15" uuid="a76b4bb6-2a7f-4bab-bab0-bcd38a14145c">
+						<property name="com.jaspersoft.studio.unit.y" value="px"/>
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Left" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{cancelled} ? "Canceled" 
+:$F{dep_delay} < 0 ? "Early"
+:$F{dep_delay} > 0 ? "Delayed"
+: "On-time"]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="581" y="0" width="100" height="15" uuid="656e0827-ca92-463c-aff5-8583cb7c81b2">
+						<property name="com.jaspersoft.studio.unit.y" value="px"/>
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					</reportElement>
+					<textElement verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{cancelled} ? "Canceled" 
+:$F{arr_delay} < 0 ? "Early"
+:$F{arr_delay} > 0 ? "Delayed"
+: "On-time"]]></textFieldExpression>
+				</textField>
+				<ellipse>
+					<reportElement style="Dep_Button" x="142" y="2" width="8" height="11" uuid="2281513f-43aa-4a99-9225-a9146c831aa9">
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
+						<property name="com.jaspersoft.studio.unit.x" value="px"/>
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					</reportElement>
+					<graphicElement>
+						<pen lineWidth="1.0"/>
+					</graphicElement>
+				</ellipse>
+				<ellipse>
+					<reportElement style="Arr_Button" x="412" y="2" width="8" height="11" uuid="0a3e4598-d2dc-451a-a939-9ed1a1dc73ed">
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
+						<property name="com.jaspersoft.studio.unit.x" value="px"/>
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					</reportElement>
+					<graphicElement>
+						<pen lineWidth="1.0"/>
+					</graphicElement>
+				</ellipse>
+			</frame>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="30">
+			<textField evaluationTime="Master">
+				<reportElement x="0" y="0" width="752" height="30" uuid="50429f8e-497e-4d21-a23b-6c9725268dfb">
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA["Printed: "+new SimpleDateFormat("MM/dd/yyyy HH:mm").format(TODAY( ))+"\n"
++"Page "+$V{MASTER_CURRENT_PAGE}+" of "+$V{MASTER_TOTAL_PAGES}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>
