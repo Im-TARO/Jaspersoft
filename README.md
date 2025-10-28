@@ -12,8 +12,7 @@ I have experience building reports, report books, and dashboards with Jaspersoft
 
 ## :page_facing_up: Flight Report
 
-![plane](images/plane_sm.jpg)
-<a href="https://www.freepik.com/free-vector/airplane-with-circle-flight-path_148768013.htm">Image by juicy_fish on Freepik</a>
+![plane](images/plane_sm.jpg)  [Image by juicy_fish on Freepik](https://www.freepik.com/free-vector/airplane-with-circle-flight-path_148768013.htm)
 
 - [Dataset used](https://github.com/Im-TARO/Flights/tree/main/cleaned_data)
 - `Source jrxml files` - MyReports/Flights
