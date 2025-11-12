@@ -23,7 +23,7 @@
 					<property name="local_mesure_unitx" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 				</reportElement>
-				<imageExpression><![CDATA["/Dept of Energy/images/power.jpg"]]></imageExpression>
+				<imageExpression><![CDATA["/DeptEnergy/images/power.jpg"]]></imageExpression>
 			</image>
 			<textField>
 				<reportElement positionType="Float" mode="Transparent" x="0" y="13" width="772" height="54" uuid="5bb49d37-ea51-4ca3-a18a-38cb0e66e0ee">
