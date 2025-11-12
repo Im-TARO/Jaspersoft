@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.20.6.final using JasperReports Library version 6.20.6-5c96b6aa8a39ac1dc6b6bea4b81168e16dd39231  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="book_cover" pageWidth="792" pageHeight="612" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="772" leftMargin="10" rightMargin="10" topMargin="10" bottomMargin="10" uuid="c50b24eb-eb33-413f-8e75-e7e20a5341fd">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="MySQL"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<parameter name="BookTitle" class="java.lang.String">
+		<defaultValueExpression><![CDATA["Average Electricity Prices"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="BookSubTitle" class="java.lang.String">
+		<defaultValueExpression><![CDATA["2023 - 2024"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select 1 from dual]]>
+	</queryString>
+	<field name="1" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="1"/>
+		<property name="com.jaspersoft.studio.field.label" value="1"/>
+	</field>
+	<title>
+		<band height="592" splitType="Stretch">
+			<image scaleImage="RetainShape">
+				<reportElement x="41" y="192" width="691" height="209" uuid="7d5f399a-cbec-48b3-979b-064c0b477ca2">
+					<property name="local_mesure_unitx" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				</reportElement>
+				<imageExpression><![CDATA["/Dept of Energy/images/power.jpg"]]></imageExpression>
+			</image>
+			<textField>
+				<reportElement positionType="Float" mode="Transparent" x="0" y="13" width="772" height="54" uuid="5bb49d37-ea51-4ca3-a18a-38cb0e66e0ee">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<box leftPadding="20" rightPadding="20"/>
+				<textElement textAlignment="Center">
+					<font fontName="SansSerif" size="40"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{BookTitle}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement positionType="Float" x="280" y="67" width="472" height="32" uuid="7f58d454-cae0-4ebb-9ccd-c885124eb525">
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box leftPadding="20" rightPadding="20"/>
+				<textElement>
+					<font fontName="SansSerif" size="25"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{BookSubTitle}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="376" width="752" height="30" uuid="ae79fad1-5bc7-4163-bafa-5553e8c2908e"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Image by brgfx on Freepik (https://www.freepik.com/free-vector/electricity-poles-buildings-city_5916164.htm)"]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+</jasperReport>
