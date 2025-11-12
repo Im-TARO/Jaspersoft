@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.20.6.final using JasperReports Library version 6.20.6-5c96b6aa8a39ac1dc6b6bea4b81168e16dd39231  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Divisions" pageWidth="376" pageHeight="376" orientation="Landscape" columnWidth="376" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="3c084a35-cff4-435c-b32b-638e7f663d1f">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="MySQL"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.unit." value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
+	<parameter name="region" class="java.lang.String">
+		<defaultValueExpression><![CDATA["South"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[WITH prices_2024 AS
+  (SELECT s.division,
+          e.year,
+          avg(e.residential_price) residential_price,
+          avg(e.commercial_price) commercial_price,
+          avg(e.industrial_price) industrial_price,
+          avg(e.transportation_price) transportation_price,
+          avg(e.total_price) total_price
+   FROM deptofenergy.elec_monthly_sales e
+   JOIN codes.us_states s ON e.state = s.state_code
+   WHERE e.year = 2024
+     AND s.region =  $P{region} 
+   GROUP BY division,
+            year)
+SELECT division,
+       year,
+       residential_price,
+       commercial_price,
+       industrial_price,
+       transportation_price,
+       total_price
+FROM prices_2024
+ORDER BY year DESC, CASE WHEN division IN ('New England',
+                                           'South Atlantic') THEN 1 ELSE division END]]>
+	</queryString>
+	<field name="division" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="division"/>
+		<property name="com.jaspersoft.studio.field.label" value="division"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="us_states"/>
+	</field>
+	<field name="year" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="year"/>
+		<property name="com.jaspersoft.studio.field.label" value="year"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="elec_monthly_sales"/>
+	</field>
+	<field name="residential_price" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="residential_price"/>
+		<property name="com.jaspersoft.studio.field.label" value="residential_price"/>
+	</field>
+	<field name="commercial_price" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="commercial_price"/>
+		<property name="com.jaspersoft.studio.field.label" value="commercial_price"/>
+	</field>
+	<field name="industrial_price" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="industrial_price"/>
+		<property name="com.jaspersoft.studio.field.label" value="industrial_price"/>
+	</field>
+	<field name="transportation_price" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="transportation_price"/>
+		<property name="com.jaspersoft.studio.field.label" value="transportation_price"/>
+	</field>
+	<field name="total_price" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="total_price"/>
+		<property name="com.jaspersoft.studio.field.label" value="total_price"/>
+	</field>
+	<group name="year" keepTogether="true">
+		<groupExpression><![CDATA[$F{year}]]></groupExpression>
+		<groupFooter>
+			<band height="260" splitType="Prevent">
+				<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				<barChart>
+					<chart isShowLegend="false" evaluationTime="Group" evaluationGroup="year">
+						<reportElement x="0" y="0" width="376" height="260" uuid="81dc3099-b28a-4bfa-9e62-83fe0c5c8f83">
+							<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						</reportElement>
+						<chartTitle position="Bottom">
+							<titleExpression><![CDATA[$F{year}]]></titleExpression>
+						</chartTitle>
+						<chartSubtitle/>
+						<chartLegend/>
+					</chart>
+					<categoryDataset>
+						<dataset resetType="Group" resetGroup="year"/>
+						<categorySeries>
+							<seriesExpression><![CDATA["Residential"]]></seriesExpression>
+							<categoryExpression><![CDATA[$F{division}]]></categoryExpression>
+							<valueExpression><![CDATA[ROUND_HALF_EVEN($F{residential_price},0)]]></valueExpression>
+						</categorySeries>
+						<categorySeries>
+							<seriesExpression><![CDATA["Commercial"]]></seriesExpression>
+							<categoryExpression><![CDATA[$F{division}]]></categoryExpression>
+							<valueExpression><![CDATA[ROUND_HALF_EVEN($F{commercial_price},0)]]></valueExpression>
+						</categorySeries>
+						<categorySeries>
+							<seriesExpression><![CDATA["Industrial"]]></seriesExpression>
+							<categoryExpression><![CDATA[$F{division}]]></categoryExpression>
+							<valueExpression><![CDATA[ROUND_HALF_EVEN($F{industrial_price},0)]]></valueExpression>
+						</categorySeries>
+						<categorySeries>
+							<seriesExpression><![CDATA["Transportation"]]></seriesExpression>
+							<categoryExpression><![CDATA[$F{division}]]></categoryExpression>
+							<valueExpression><![CDATA[ROUND_HALF_EVEN($F{transportation_price},0)]]></valueExpression>
+						</categorySeries>
+					</categoryDataset>
+					<barPlot isShowLabels="true" isShowTickLabels="true">
+						<plot>
+							<seriesColor seriesOrder="0" color="#92BDE4"/>
+							<seriesColor seriesOrder="1" color="#FFFF94"/>
+							<seriesColor seriesOrder="2" color="#9ECB8E"/>
+							<seriesColor seriesOrder="3" color="#FFBC6E"/>
+						</plot>
+						<itemLabel/>
+						<categoryAxisFormat>
+							<axisFormat labelColor="#000000" tickLabelColor="#000000" axisLineColor="#000000">
+								<labelFont>
+									<font size="10"/>
+								</labelFont>
+								<tickLabelFont>
+									<font size="8"/>
+								</tickLabelFont>
+							</axisFormat>
+						</categoryAxisFormat>
+						<valueAxisFormat>
+							<axisFormat labelColor="#FFFFFF" tickLabelColor="#FFFFFF" verticalTickLabels="false" axisLineColor="#000000"/>
+						</valueAxisFormat>
+					</barPlot>
+				</barChart>
+			</band>
+		</groupFooter>
+	</group>
+	<group name="division">
+		<groupExpression><![CDATA[$F{division}]]></groupExpression>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+</jasperReport>
