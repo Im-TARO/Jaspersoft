@@ -515,7 +515,7 @@ ORDER BY CASE
 						<subreportParameterExpression><![CDATA[$F{region}]]></subreportParameterExpression>
 					</subreportParameter>
 					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-					<subreportExpression><![CDATA["Region_yearly.jrxml"]]></subreportExpression>
+					<subreportExpression><![CDATA["subrpt_RegionsBarChart.jrxml"]]></subreportExpression>
 				</subreport>
 				<subreport>
 					<reportElement x="376" y="10" width="376" height="290" uuid="cbd5ad1a-eb48-420c-af68-12845f776af2">
@@ -525,7 +525,7 @@ ORDER BY CASE
 						<subreportParameterExpression><![CDATA[$F{region}]]></subreportParameterExpression>
 					</subreportParameter>
 					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-					<subreportExpression><![CDATA["Divisions.jrxml"]]></subreportExpression>
+					<subreportExpression><![CDATA["subrpt_DivisionsBarChart.jrxml"]]></subreportExpression>
 				</subreport>
 			</band>
 		</groupFooter>

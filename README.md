@@ -30,7 +30,7 @@ I have experience designing and developing reports, report books, HTML5 charts, 
 - `Source jrxml files` - MyReports/Dept of Energy
 - `Report output` - MyReports/Dept of Energy/Report Output/AverageElectricityPrices.pdf
 
-![reportbook1 output](MyReports\DeptEnergy\images\ReportBook1.jpg)
-![reportbook2 output](MyReports\DeptEnergy\images\ReportBook2.jpg)
-![reportbook3 output](MyReports\DeptEnergy\images\ReportBook3.jpg)
-![reportbook4 output](MyReports\DeptEnergy\images\ReportBook4.jpg)
+![reportbook1 output](MyReports/DeptEnergy/images/ReportBook1.jpg)
+![reportbook2 output](MyReports/DeptEnergy/images/ReportBook2.jpg)
+![reportbook3 output](MyReports/DeptEnergy/images/ReportBook3.jpg)
+![reportbook4 output](MyReports/DeptEnergy/images/ReportBook4.jpg)
